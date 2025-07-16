@@ -1,1 +1,2 @@
-otel-output/
+otel-output/*
+!otel-output/output.log
