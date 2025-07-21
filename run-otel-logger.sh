@@ -9,4 +9,5 @@ docker run --rm \
   -v "$(pwd)/otel-output":/etc/otel-collector \
   -p 4317:4317 \
   otel/opentelemetry-collector:latest \
+  --feature-gates=service.profilesSupport \
   --config=/etc/otel-collector-config.yml

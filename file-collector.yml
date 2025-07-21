@@ -5,8 +5,29 @@ receivers:
         endpoint: "0.0.0.0:4317"
 
 exporters:
-  file:
-    path: /etc/otel-collector/output.log
+  file/traces:
+    path: /etc/otel-collector/traces.log
+    rotation:
+      max_megabytes: 256
+      max_days: 7
+      max_backups: 4
+
+  file/metrics:
+    path: /etc/otel-collector/metrics.log
+    rotation:
+      max_megabytes: 256
+      max_days: 7
+      max_backups: 4
+
+  file/logs:
+    path: /etc/otel-collector/logs.log
+    rotation:
+      max_megabytes: 256
+      max_days: 7
+      max_backups: 4
+
+  file/profiles:
+    path: /etc/otel-collector/profiles.log
     rotation:
       max_megabytes: 256
       max_days: 7
@@ -16,10 +37,16 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [file/traces]
+
     metrics:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [file/metrics]
+
     logs:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [file/logs]
+
+    profiles:
+      receivers: [otlp]
+      exporters: [file/profiles]
